@@ -1,28 +1,34 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import store, {INSTRUCTIONS} from '.../store'
 
 class Instructions extends Component {
   constructor(props) {
     super(props);
+    const reduxStore = store.getState()
     this.state = {
-      instructions: [],
+      instructions: reduxStore.instructions,
       input: ""
     };
   }
+
   handleChange(val) {
     this.setState({
       input: val
     });
   }
+
   addInstruction() {
     // Send data to Redux state
     this.setState({
       input: ""
     });
   }
+
   create() {
     // Create new recipe in Redux state
   }
+  
   render() {
     const instructions = this.state.instructions.map((instruction, i) => {
       return <li key={i}>{instruction}</li>;
