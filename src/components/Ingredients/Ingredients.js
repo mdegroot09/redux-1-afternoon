@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import store, {INGREDIENTS} from '.../store'
+import store, { ADD_INGREDIENT } from "./../../store";
 
 class Ingredients extends Component {
   constructor(props) {
     super(props);
-    const reduxStore = store.getState()
+    const reduxState = store.getState();
     this.state = {
-      ingredients: reduxStore.ingredients,
+      ingredients: reduxState.ingredients,
       input: ""
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     store.subscribe(() => {
+      const reduxState = store.getState();
       this.setState({
-        store: store.getState()
-      })
-    })
+        ingredients: reduxState.ingredients
+      });
+    });
   }
 
   handleChange(val) {
@@ -26,11 +27,11 @@ class Ingredients extends Component {
     });
   }
 
-  addIngredient = () => {
+  addIngredient() {
     store.dispatch({
-      type: INGREDIENTS,
-      payload: this.state.ingredients
-    })
+      type: ADD_INGREDIENT,
+      payload: this.state.input
+    });
     this.setState({
       input: ""
     });

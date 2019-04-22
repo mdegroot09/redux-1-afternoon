@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import './Author.css';
-import store from '.../store'
-import { UPDATE_FIRST, UPDATE_LAST } from "../../store";
+import "./Author.css";
+import store, { UPDATE_AUTHOR_FIRST, UPDATE_AUTHOR_LAST } from "./../../store";
 
 class Author extends Component {
   constructor(props) {
     super(props);
-    const reduxStore = store.getState()
+    const reduxState = store.getState();
     this.state = {
-      authorFirst: reduxStore.authorFirst,
-      authorLast: reduxStore.authorLast
+      authorFirst: reduxState.authorFirst,
+      authorLast: reduxState.authorLast
     };
   }
 
@@ -28,13 +27,13 @@ class Author extends Component {
 
   saveChanges() {
     store.dispatch({
-      type: UPDATE_FIRST,
-      authorFirst: this.state.authorFirst
-    })
+      type: UPDATE_AUTHOR_FIRST,
+      payload: this.state.authorFirst
+    });
     store.dispatch({
-      type: UPDATE_LAST,
-      authorLast: this.state.authorLast
-    })
+      type: UPDATE_AUTHOR_LAST,
+      payload: this.state.authorLast
+    });
   }
   
   render() {
